@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "XHttp",
+        "repositoryURL": "https://github.com/jaredh159/x-http.git",
+        "state": {
+          "branch": null,
+          "revision": "4b7ebc79ec24e12a9a58c739a214b3f062df9ec6",
+          "version": "1.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

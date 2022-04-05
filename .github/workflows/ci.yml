@@ -1,0 +1,27 @@
+name: basic-ci
+
+on: push
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    container: swift:5.5-focal
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build
+        run: swift build
+      - name: Run tests
+        run: SWIFT_DETERMINISTIC_HASHING=1 swift test
+
+  # uncomment when macos-12 comes out of private beta
+  # @see https://github.com/github/feedback/discussions/13552
+  # macos:
+  #   runs-on: macos-12
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     - name: Build
+  #       run: swift build
+  #     - name: Run tests
+  #       run: SWIFT_DETERMINISTIC_HASHING=1 swift test

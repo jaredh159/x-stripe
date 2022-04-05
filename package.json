@@ -1,0 +1,14 @@
+{
+  "name": "@jaredh159/x-stripe",
+  "version": "1.0.0",
+  "description": "a simple Swift Stripe client",
+  "scripts": {
+    "start": "watchexec --restart --watch Sources --watch Package.swift --exts swift --signal SIGINT swift build",
+    "start:tests": "watchexec --restart --watch Sources --watch Tests --watch Package.swift --exts swift --signal SIGINT swift test",
+    "test": "SWIFT_DETERMINISTIC_HASHING=1 swift test",
+    "format": "swiftformat ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

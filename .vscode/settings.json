@@ -1,0 +1,6 @@
+{
+  "files.exclude": {
+    "Package.resolved": true,
+    "**/.build": true
+  }
+}
