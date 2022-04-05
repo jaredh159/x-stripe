@@ -2,9 +2,27 @@ import XHttp
 
 public extension Stripe {
   struct Client {
+
     public var createPaymentIntent = createPaymentIntent(amountInCents:currency:metadata:secretKey:)
     public var cancelPaymentIntent = cancelPaymentIntent(id:secretKey:)
     public var createRefund = createRefund(paymentIntentId:secretKey:)
+
+    public init() {}
+
+    public init(
+      createPaymentIntent: @escaping (
+        Int,
+        Stripe.Api.Currency,
+        [String: String],
+        String
+      ) async throws -> Stripe.Api.PaymentIntent,
+      cancelPaymentIntent: @escaping (String, String) async throws -> Stripe.Api.PaymentIntent,
+      createRefund: @escaping (String, String) async throws -> Stripe.Api.Refund
+    ) {
+      self.createPaymentIntent = createPaymentIntent
+      self.cancelPaymentIntent = cancelPaymentIntent
+      self.createRefund = createRefund
+    }
   }
 }
 
