@@ -4,12 +4,11 @@ A very bare-bones **Swift Stripe Client/SDK**, written with async/await.
 
 ## Anti-pitch
 
-This library was written to cover _only_ and _exactly_ a single use-case for one of my
-vapor apps. It's open source, and you're welcome to use it, but it has some major
-limitations currently -- including that it only supports 3 api operations (creating a
-payment intent, canceling a payment intent, and creating a refund), and only supports
-`USD` currency. That said, if it looks promising, and you'd like to see it broadened, open
-an issue, or open a PR, I'm open to making it more general-purpose.
+This library was written to cover _only the use-cases for two_ of my vapor apps. It's open
+source, and you're welcome to use it, but it has some major limitations currently --
+including that it only supports 7 api operations, and only supports `USD` currency. That
+said, if it looks promising, and you'd like to see it broadened, open an issue, or open a
+PR, I'm open to making it more general-purpose.
 
 ## Usage
 
@@ -42,6 +41,43 @@ _Create_ a **refund**:
 ```swift
 // [...]
 let refund = try await Stripe.Client().createRefund("pi_123", secretKey)
+```
+
+_Create_ a **checkout session**:
+
+```swift
+// [...]
+let sessionData = Stripe.CheckoutSessionData(
+  successUrl: "https://site.com/checkout-success?session_id={CHECKOUT_SESSION_ID}",
+  cancelUrl: "https://site.com/checkout-cancel",
+  lineItems: [.init(quantity: 1, priceId: "price_123abc")],
+  mode: .subscription,
+  clientReferenceId: "your-internal-reference-id", // optional
+  customerEmail: "suzy@q.com", // optional
+  trialPeriodDays: 30 // optional
+)
+let session = try await Stripe.Client().createCheckoutSession(sessionData, secretKey)
+```
+
+_Get_ a **checkout session**:
+
+```swift
+// [...]
+let session = try await Stripe.Client().getCheckoutSession("cs_123", secretKey)
+```
+
+_Get_ a **subscription**:
+
+```swift
+// [...]
+let subscription = try await Stripe.Client().getSubscription("sub_123", secretKey)
+```
+
+_Create_ a **billing portal sesssion**:
+
+```swift
+// [...]
+let session = try await Stripe.Client().createBillingPortalSession("bps_123", secretKey)
 ```
 
 ## Environment/Mocking/Testing
