@@ -110,6 +110,16 @@ public enum Stripe {
       case subscription
     }
 
+    public enum TrialEndBehavior: String {
+      case pause
+      case createInvoice = "create_invoice"
+    }
+
+    public enum PaymentMethodCollection: String {
+      case always
+      case ifRequired = "if_required"
+    }
+
     public let successUrl: String
     public let cancelUrl: String
     public let lineItems: [LineItem]
@@ -117,6 +127,8 @@ public enum Stripe {
     public let clientReferenceId: String?
     public let customerEmail: String?
     public let trialPeriodDays: Int?
+    public let trialEndBehavior: TrialEndBehavior?
+    public let paymentMethodCollection: PaymentMethodCollection?
 
     public init(
       successUrl: String,
@@ -125,7 +137,9 @@ public enum Stripe {
       mode: Stripe.CheckoutSessionData.Mode,
       clientReferenceId: String?,
       customerEmail: String?,
-      trialPeriodDays: Int?
+      trialPeriodDays: Int?,
+      trialEndBehavior: TrialEndBehavior?,
+      paymentMethodCollection: PaymentMethodCollection?
     ) {
       self.successUrl = successUrl
       self.cancelUrl = cancelUrl
@@ -134,6 +148,8 @@ public enum Stripe {
       self.clientReferenceId = clientReferenceId
       self.customerEmail = customerEmail
       self.trialPeriodDays = trialPeriodDays
+      self.trialEndBehavior = trialEndBehavior
+      self.paymentMethodCollection = paymentMethodCollection
     }
   }
 }

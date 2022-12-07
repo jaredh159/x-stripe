@@ -105,6 +105,15 @@ private func createCheckoutSession(
     params["subscription_data[trial_period_days]"] = String(trialPeriodDays)
   }
 
+  if let endBehavior = data.trialEndBehavior {
+    params["subscription_data[trial_settings][end_behavior][missing_payment_method]"] = endBehavior
+      .rawValue
+  }
+
+  if let collection = data.paymentMethodCollection {
+    params["payment_method_collection"] = collection.rawValue
+  }
+
   if let clientReferenceId = data.clientReferenceId {
     params["client_reference_id"] = clientReferenceId
   }
